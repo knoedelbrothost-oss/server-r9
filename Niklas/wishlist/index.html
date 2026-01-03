@@ -30,9 +30,16 @@
         h2 {
             text-align: center;
             margin-bottom: 30px;
+            margin-top: 30px;
             color: #f0f0f0;
             font-size: 1.8em;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        h3 {
+            color: #f0f0f0;
+            margin-bottom: 30px;
+            text-align: center;
         }
         
         .wishlist-container {
@@ -100,11 +107,33 @@
         .wish-item-disabled {
             cursor: default;
         }
+
+        .header-link {
+            background: white;
+            border-radius: 6px;
+            padding: 10px;
+            width: fit-content;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            color: #333;
+            display: block;
+            position: relative;
+        }
     </style>
 </head>
 <body>
+    <header>
     <h1>🎁 Mein Wunschzettel</h1>
-    <h2>Gutscheine & Abos</h2>
+    <h2>Direkt zu:</h2>
+    <div style="display:flex;gap:12px;justify-content:center;margin-bottom:40px">
+    <a href="#Gutscheine & Abos" class="header-link">Gutscheine & Abos</a>
+    <a href="#Filamente" class="header-link">Filamente</a>
+    </div>
+    </header>
+    <main>
+    <h2 id="Gutscheine & Abos">Gutscheine & Abos</h2>
     <div class="wishlist-container">
         <a href="anycubic-gutschein/index.html" class="wish-item" target="_blank">
             <img src="https://www.3dprintingbusiness.directory/wp-content/uploads/2020/11/anycubiclogo.jpg" alt="Anycubic Logo">
@@ -113,7 +142,7 @@
             </div>
         </a>
         
-        <a href="#" class="wish-item wish-item-disabled">
+        <a class="wish-item wish-item-disabled">
             <img src="https://logospng.org/download/spotify/logo-spotify-icon-4096.png" alt="Spotify Logo">
             <div class="wish-item-content">
                 <div class="wish-item-title">Spotify Premium</div>
@@ -121,7 +150,7 @@
             </div>
         </a>
 
-        <a href="#" class="wish-item wish-item-disabled">
+        <a class="wish-item wish-item-disabled">
             <img src="https://androidayuda.com/wp-content/uploads/2020/06/komoot-logo.png" alt="Komoot Logo">
             <div class="wish-item-content">
                 <div class="wish-item-title">Komoot Premium</div>
@@ -129,19 +158,43 @@
             </div>
         </a>
 
-        <a href="https://www.amazon.de" class="wish-item" target="_blank">
+        <a href="https://www.amazon.de" class="wish-item" target="_blank" rel="noopener">
             <img src="https://www.designtagebuch.de/wp-content/uploads/mediathek/2024/11/amazon-logo.jpg" alt="Amazon Logo">
             <div class="wish-item-content">
                 <div class="wish-item-title">Amazon Gutschein</div>
             </div>
         </a>   
 
-        <a href="https://www.amazon.de/amazonprime" class="wish-item" target="_blank">
+        <a href="https://www.amazon.de/amazonprime" class="wish-item" target="_blank" rel="noopener">
             <img src="https://cdn4.iconfinder.com/data/icons/logos-brands-in-colors/92/amazon-prime-logo-1024.png" alt="Prime Logo">
             <div class="wish-item-content">
                 <div class="wish-item-title">Amazon Prime</div>
             </div>
         </a>
     </div>
+    <br><br><br>
+    <h2 id="Filamente">Filamente</h2>
+    <h3>Einfache Filamente:</h3>
+    <div class="wishlist-container">
+        <a href="https://de.anycubic.com/products/pla-plus-filament?variant=44330596696302" class="wish-item" target="_blank" rel="noopener">
+            <img src="https://de.anycubic.com/cdn/shop/files/plaplusblack1_f909c58f-b0be-4418-b4d4-ff24515b14c4.jpg?v=1756452638&width=713" alt="PLA+ Filament Black">
+            <div class="wish-item-content">
+                <div class="wish-item-title">PLA+ Black</div>
+            </div>
+        </a>
+        <a href="https://de.anycubic.com/products/pla-plus-filament?variant=44330596663534" class="wish-item" target="_blank" rel="noopener">
+            <img src="https://de.anycubic.com/cdn/shop/files/plapluswhite1_f59ef51b-6633-40b7-bec0-c6aff647f4d1.jpg?v=1756452638&width=713" alt="PLA+ Filament White">
+            <div class="wish-item-content">
+                <div class="wish-item-title">PLA+ White</div>
+            </div>
+        </a>
+        <a href="https://de.anycubic.com/products/pla-plus-filament?variant=45521662509294" class="wish-item" target="_blank" rel="noopener">
+            <img src="https://de.anycubic.com/cdn/shop/files/plaplusorange1_f5544466-031f-4e8d-b86e-06cb9e3158c4.jpg?v=1756452638&width=713" alt="PLA+ Filament Orange">
+            <div class="wish-item-content"> 
+                <div class="wish-item-title">PLA+ Orange</div>
+            </div>
+        </a>
+    </div>
+    </main>
 </body>
 </html>

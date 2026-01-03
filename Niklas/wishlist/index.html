@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wunschzettel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #f0f0f0;
+            font-size: 1.8em;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .wishlist-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            object-position: center;
+        }
+        
+        .wish-item {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            color: #333;
+            display: block;
+            position: relative;
+            height: 320px;
+            width: 320px;
+        }
+        
+        .wish-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .wish-item img {
+            max-height: 220px;
+            max-width: 370px;
+            object-fit: cover;
+            transition: transform 0.4s;
+            object-position: center;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .wish-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .wish-item-content {
+            padding: 20px;
+            background: linear-gradient(to bottom, #ffffff, #fafafa);
+            text-align: center;
+        }
+        
+        .wish-item-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            color: #333;
+        }
+        
+        .wish-item-description {
+            font-size: 0.95em;
+            color: #777;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎁 Mein Wunschzettel</h1>
+    <h2>Gutscheine & Abos</h2>
+    <div class="wishlist-container">
+        <a href="anycubic-gutschein/index.html" class="wish-item">
+            <img src="https://www.3dprintingbusiness.directory/wp-content/uploads/2020/11/anycubiclogo.jpg" alt="Anycubic Logo">
+            <div class="wish-item-content">
+                <div class="wish-item-title">Anycubic Gutschein</div>
+            </div>
+        </a>
+        
+        <a href="#" class="wish-item" style="cursor: default;">
+            <img src="https://logospng.org/download/spotify/logo-spotify-icon-4096.png" alt="Spotify Logo">
+            <div class="wish-item-content">
+                <div class="wish-item-title">Spotify Premium</div>
+                <div class="wish-item-description">(Zum Geburtstag)</div>
+            </div>
+        </a>
+        
+        <a href="#" class="wish-item">
+            <img src="https://androidayuda.com/wp-content/uploads/2020/06/komoot-logo.png" alt="Komoot Logo">
+            <div class="wish-item-content">
+                <div class="wish-item-title">Komoot Premium</div>
+                <div class="wish-item-description">(Zu Weihnachten)</div>
+            </div>
+        </a>
+
+        <a href="https://www.amazon.de" class="wish-item">
+            <img src="https://www.designtagebuch.de/wp-content/uploads/mediathek/2024/11/amazon-logo.jpg" alt="Amazon Logo">
+            <div class="wish-item-content">
+                <div class="wish-item-title">Amazon Gutschein</div>
+            </div>
+        </a>   
+
+        <a href="https://www.amazon.de/amazonprime" class="wish-item">
+            <img src="https://cdn4.iconfinder.com/data/icons/logos-brands-in-colors/92/amazon-prime-logo-1024.png" alt="Prime Logo">
+            <div class="wish-item-content">
+                <div class="wish-item-title">Amazon Prime</div>
+            </div>
+        </a>
+    </div>
+</body>
+</html>

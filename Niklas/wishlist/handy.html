@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wunschzettel</title>
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/6021/6021967.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 30px;
+            color: #f0f0f0;
+            font-size: 1.8em;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        h3 {
+            color: #f0f0f0;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .wishlist-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            width: 100%;
+            margin: 0;
+            object-position: center;
+            margin-bottom: 30px;
+        }
+
+        .wish-item {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            color: #333;
+            display: block;
+            position: relative;
+            height: 160px;
+            width: 160px;
+        }
+
+        .wish-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .wish-item img {
+            max-height: 90px;
+            max-width: 185px;
+            object-fit: cover;
+            transition: transform 0.4s;
+            object-position: center;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .wish-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .wish-item-content {
+            padding: 10px;
+            background: linear-gradient(to bottom, #ffffff, #fafafa);
+            text-align: center;
+        }
+
+        .wish-item-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-size: 0.8em;
+            color: #333;
+        }
+
+        .wish-item-description {
+            font-size: 0.7em;
+            color: #777;
+            line-height: 1.3;
+        }
+
+        .wish-item-disabled {
+            cursor: default;
+        }
+
+        .header-link {
+            background: white;
+            border-radius: 6px;
+            padding: 10px;
+            width: fit-content;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            color: #333;
+            display: block;
+            position: relative;
+        }
+
+        #scrollToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.589);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+            width: 100%;
+            font-weight: bold;
+            text-align: center;
+            align-items: center;
+        }
+
+        section {
+            background-color: rgba(0, 0, 0, 0);
+            -webkit-backdrop-filter: none;
+            padding: none;
+            backdrop-filter: none;
+            border-radius: none;
+            box-shadow: none;
+            margin-bottom: 120px;
+        }
+
+        .last-section {
+            margin-bottom: 0px;
+        }
+
+        .wish-item.starred {
+            border: 1px solid gold;
+            box-shadow: 0 0 15px gold;
+            z-index: 20;
+        }
+
+        .wish-item.starred::after {
+            content: "★";
+            position: absolute;
+            top: 0px;
+            right: 6px;
+            font-size: 40px;
+            color: gold;
+            text-shadow: 0px 2px 5px rgb(0, 0, 0);
+            z-index: 20;
+        }
+
+        .wish-item.bad {
+            border: 0.5px solid red;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        .wish-item.bad img {
+            opacity: 0.6;
+            filter: grayscale(100%);
+        }
+
+        .wish-item.bad::after {
+            content: "⚠";
+            position: absolute;
+            top: 0px;
+            right: 6px;
+            font-size: 30px;
+            color: red;
+            text-shadow: 0px 2px 5px rgb(0, 0, 0);
+            z-index: 10;
+        }
+
+        .wish-item.bad:hover {
+            border: 1px solid red;
+            box-shadow: 0 0 15px red;
+        }
+
+        .wish-item.bad:hover img {
+            filter: none;
+            opacity: 1;
+        }
+
+        .computer-only {
+            display: none;
+        }
+
+        @media (min-width: 700px) {
+
+            .computer-only {
+                display: block;
+                background: red;
+                animation: computer forwards 1s linear infinite;
+            }
+
+            @keyframes computer {
+
+                0%,
+                100% {
+                    background: red;
+                    box-shadow: 0 0 20px orange;
+                    transform: rotate(2deg);
+                }
+
+                50% {
+                    background: orange;
+                    box-shadow: 0 0 10px orange;
+                    transform: rotate(-2deg);
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🎁 Mein Wunschzettel</h1>
+        <h2>Direkt zu:</h2>
+        <div class="nav">
+            <a href="#Filamente" class="header-link">Filamente</a>
+            <a href="#sonstiges" class="header-link">Sonstiges</a>
+            <a href="index.html" class="header-link computer-only">Wechsle jetzt zur PC Version!</a>
+        </div>
+    </header>
+    <main>
+        <section id="Gutscheine & Abos">
+            <h2>Gutscheine & Abos</h2>
+            <div class="wishlist-container">
+                <a href="anycubic-gutschein/index.html" class="wish-item starred" target="_blank">
+                    <img src="https://www.3dprintingbusiness.directory/wp-content/uploads/2020/11/anycubiclogo.jpg"
+                        alt="Anycubic Logo">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">Anycubic Gutschein</div>
+                    </div>
+                </a>
+
+                <a class="wish-item wish-item-disabled bad">
+                    <img src="https://logospng.org/download/spotify/logo-spotify-icon-4096.png" alt="Spotify Logo">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">Spotify Premium</div>
+                        <div class="wish-item-description">(Zum Geburtstag)</div>
+                    </div>
+                </a>
+
+                <a class="wish-item wish-item-disabled bad">
+                    <img src="https://androidayuda.com/wp-content/uploads/2020/06/komoot-logo.png" alt="Komoot Logo">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">Komoot Premium</div>
+                        <div class="wish-item-description">(Zu Weihnachten)</div>
+                    </div>
+                </a>
+
+                <a href="https://www.amazon.de" class="wish-item" target="_blank" rel="noopener">
+                    <img src="https://www.designtagebuch.de/wp-content/uploads/mediathek/2024/11/amazon-logo.jpg"
+                        alt="Amazon Logo">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">Amazon Gutschein</div>
+                    </div>
+                </a>
+
+                <a href="https://www.amazon.de/amazonprime" class="wish-item starred" target="_blank" rel="noopener">
+                    <img src="https://cdn4.iconfinder.com/data/icons/logos-brands-in-colors/92/amazon-prime-logo-1024.png"
+                        alt="Prime Logo">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">Amazon Prime</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <section id="Filamente">
+            <h2>Filamente</h2>
+            <h2>Bitte beim Kauf mehrer Filamente Bündel erstellen!</h2>
+            <div class="nav">
+                <a href="#pla+" class="header-link">PLA+</a>
+                <a href="#pla-silk" class="header-link">PLA-Silk</a>
+                <a href="#dual-tri-color" class="header-link">PLA Silk Dual/Tri-Color</a>
+                <a href="#petg-translucent" class="header-link">PETG Translucent</a>
+                <a href="#sonstiges-filament" class="header-link">Sonstiges Filament</a>
+            </div>
+            <h3 id="pla+">PLA+</h3>
+            <div class="wishlist-container">
+                <a href="https://de.anycubic.com/products/pla-refill?variant=46994212520174" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/plaplusblack1_f909c58f-b0be-4418-b4d4-ff24515b14c4.jpg?v=1756452638&width=713"
+                        alt="PLA+ Filament Black">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PLA+ Black</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/pla-refill?variant=46994212552942" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/plapluswhite1_f59ef51b-6633-40b7-bec0-c6aff647f4d1.jpg?v=1756452638&width=713"
+                        alt="PLA+ Filament White">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PLA+ White</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/pla-plus-filament?variant=45521662509294" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/plaplusorange1_f5544466-031f-4e8d-b86e-06cb9e3158c4.jpg?v=1756452638&width=713"
+                        alt="PLA+ Filament Orange">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PLA+ Orange</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/pla-plus-filament?variant=46860097913070" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/plaplusgrey1_aa313a52-6892-4610-ab4d-e6e3398d4ac3.jpg?v=1756452638&width=713"
+                        alt="PLA+ Grau">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PLA+ Gray</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/pla-refill?variant=46994212585710" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/plaplusTextureGrey1_55940b38-5c8e-4949-b120-50cc2cd389f3.jpg?v=1756452638&width=713"
+                        alt="PLA+ Struktur Grau">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PLA+ Dark Gray</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/pla-plus-filament?variant=45369494372590" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/plaplusblue1_8f55fb43-7bf5-4fc6-a594-41c19f4bf946.jpg?v=1756452638&width=1500"
+                        alt="PLA+ Filament Blue">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PLA+ Blue</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/pla-refill?variant=46994212618478" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/plaplusred1_6fb09756-9abf-4e87-86e3-94eec9d4c8d6.jpg?v=1756452638&width=713"
+                        alt="PLA+ Filament Rot">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PLA+ Red</div>
+                    </div>
+                    <a href="https://de.anycubic.com/products/pla-plus-filament?variant=45521662574830"
+                        class="wish-item" target="_blank" rel="noopener">
+                        <img src="https://de.anycubic.com/cdn/shop/files/plaplusBrightRed1_aa8396d8-5b7c-4839-9d27-1a0956271fca.jpg?v=1756452638&width=713"
+                            alt="PLA+ Filament Leuchtendes Red">
+                        <div class="wish-item-content">
+                            <div class="wish-item-title">PLA+ Bright Red</div>
+                        </div>
+                    </a>
+                    <a href="https://de.anycubic.com/products/pla-plus-filament?variant=46860097880302"
+                        class="wish-item" target="_blank" rel="noopener">
+                        <img src="https://de.anycubic.com/cdn/shop/files/plaplusgreen1_41368bd9-6e6b-49f2-81a1-704f8b27c378.jpg?v=1756452638&width=713"
+                            alt="PLA+ Filament Green">
+                        <div class="wish-item-content">
+                            <div class="wish-item-title">PLA+ Green</div>
+                        </div>
+                    </a>
+                    <a href="https://de.anycubic.com/products/pla-plus-filament?variant=45521662476526"
+                        class="wish-item" target="_blank" rel="noopener">
+                        <img src="https://de.anycubic.com/cdn/shop/files/plaplusGreenFlash1_8a84abdc-2d25-4115-982f-228b58e2a548.jpg?v=1756452638&width=713"
+                            alt="PLA+ Filament Green">
+                        <div class="wish-item-content">
+                            <div class="wish-item-title">PLA+ Green Flash</div>
+                        </div>
+                    </a>
+                    <a href="https://de.anycubic.com/products/pla-plus-filament?variant=46860097847534"
+                        class="wish-item" target="_blank" rel="noopener">
+                        <img src="https://de.anycubic.com/cdn/shop/files/plaplusSpringLeaf1_f123e69e-5c1d-45ea-aa0d-09f915b19321.jpg?v=1756452638&width=713"
+                            alt="PLA+ Filament Spring Leaf">
+                        <div class="wish-item-content">
+                            <div class="wish-item-title">PLA+ Spring Leaf</div>
+                        </div>
+                    </a>
+                    <a href="https://de.anycubic.com/products/pla-plus-filament?variant=45521662542062"
+                        class="wish-item" target="_blank" rel="noopener">
+                        <img src="https://de.anycubic.com/cdn/shop/files/plaplusPurple1_8bb6d9f5-4a2a-4dfd-ba64-29eb6f6ab43d.jpg?v=1756452638&width=713"
+                            alt="PLA+ Filament Purple">
+                        <div class="wish-item-content">
+                            <div class="wish-item-title">PLA+ Purple</div>
+                        </div>
+                    </a>
+                    <a href="https://de.anycubic.com/products/pla-plus-filament?variant=45983413010670"
+                        class="wish-item" target="_blank" rel="noopener">
+                        <img src="https://de.anycubic.com/cdn/shop/files/plaplusyellow1_ed5f80ee-6a01-47b9-b16f-343c4a55fa58.jpg?v=1756452638&width=713"
+                            alt="PLA+ Filament Yellow">
+                        <div class="wish-item-content">
+                            <div class="wish-item-title">PLA+ Yellow</div>
+                        </div>
+                    </a>
+                    <a href="https://de.anycubic.com/products/pla-plus-filament?variant=45521662607598"
+                        class="wish-item" target="_blank" rel="noopener">
+                        <img src="https://de.anycubic.com/cdn/shop/files/plaplusTextureSilver1_6cd4643f-2cd5-43ef-aaa3-7d5a51139d6d.jpg?v=1756452638&width=713"
+                            alt="PLA+ Filament Silver">
+                        <div class="wish-item-content">
+                            <div class="wish-item-title">PLA+ Silver</div>
+                        </div>
+                    </a>
+                    <a href="https://de.anycubic.com/products/pla-refill?variant=46994212815086" class="wish-item"
+                        target="_blank" rel="noopener">
+                        <img src="https://de.anycubic.com/cdn/shop/files/plaplusPeachPink1_3a8be933-6300-4c2a-a83e-2e7a0ae5e631.jpg?v=1756452638&width=713"
+                            alt="PLA+ Filament Peach Pink">
+                        <div class="wish-item-content">
+                            <div class="wish-item-title">PLA+ Peach Pink</div>
+                        </div>
+                    </a>
+                    <a href="https://de.anycubic.com/products/pla-plus-filament?variant=46860097781998"
+                        class="wish-item" target="_blank" rel="noopener">
+                        <img src="https://de.anycubic.com/cdn/shop/files/plaplusInterstellarViolet1_4b10d117-c80d-45be-b54c-57d6a495d4fe.jpg?v=1756452638&width=713"
+                            alt="PLA+ Filament Interstellar Violet">
+                        <div class="wish-item-content">
+                            <div class="wish-item-title">PLA+ Interstellar Violet</div>
+                        </div>
+                    </a>
+                    <a href="https://de.anycubic.com/products/pla-plus-filament?variant=46860097814766"
+                        class="wish-item" target="_blank" rel="noopener">
+                        <img src="https://de.anycubic.com/cdn/shop/files/plaplusTropicalTurquoise1_2fb66116-c243-4069-97e5-18d865638bfc.jpg?v=1756452638&width=713"
+                            alt="PLA+ Filament Tropical Turquoise">
+                        <div class="wish-item-content">
+                            <div class="wish-item-title">PLA+ Tropical Turquoise</div>
+                        </div>
+                    </a>
+                    <a href="https://de.anycubic.com/products/pla-plus-filament?variant=46860098011374"
+                        class="wish-item" target="_blank" rel="noopener">
+                        <img src="https://de.anycubic.com/cdn/shop/files/plaplusBrown1_f3cf85a4-2fcd-42d5-b37a-335dc370bdbe.jpg?v=1756452638&width=713"
+                            alt="PLA+ Filament Braun">
+                        <div class="wish-item-content">
+                            <div class="wish-item-title">PLA+ Brown</div>
+                        </div>
+                    </a>
+                    <a href="https://de.anycubic.com/products/pla-plus-filament?variant=46860098044142"
+                        class="wish-item" target="_blank" rel="noopener">
+                        <img src="https://de.anycubic.com/cdn/shop/files/plaplusBeige1_30c37e32-9745-455a-a589-46060fed1444.jpg?v=1756452638&width=713"
+                            alt="PLA+ Filament Beige">
+                        <div class="wish-item-content">
+                            <div class="wish-item-title">PLA+ Beige</div>
+                        </div>
+                    </a>
+            </div>
+            <h3 id="pla-silk">PLA-Silk</h3>
+            <div class="wishlist-container">
+                <a href="https://de.anycubic.com/products/silk-pla-filament?variant=46683410825454" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/plasilkShinyGold1.jpg?v=1756453448&width=713"
+                        alt="PLA-Silk Filament Gold">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PLA-Silk Gold</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/silk-pla-filament?variant=43041661419758" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/plasilksilver1.jpg?v=1756453448&width=713"
+                        alt="PLA-Silk Filament Silver">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PLA-Silk Silver</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/silk-pla-filament?variant=46683410661614" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/plasilkCopper1.jpg?v=1763456946&width=713"
+                        alt="PLA-Silk Filament Kupfer">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PLA-Silk Copper</div>
+                    </div>
+                </a>
+            </div>
+            <h2 id="dual-tri-color">PLA Silk Dual/Tri-Color</h2>
+            <div class="wishlist-container">
+                <a href="https://de.anycubic.com/products/silk-pla-filament?variant=43041661255918" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/plasilkRainbow1.jpg?v=1756453448&width=713"
+                        alt="PLA-Silk Filament Regenbogen">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PLA-Silk Rainbow</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/silk-pla-dual-tri-color?variant=45237290565870"
+                    class="wish-item" target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/PLASilkDual-Triredblue1.jpg?v=1756451320&width=713"
+                        alt="PLA-Silk Filament Pastell">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PLA-Silk Red-Blue</div>
+                    </div>
+                </a>
+            </div>
+            <h3 id="petg-translucent">PETG Translucent</h3>
+            <div class="wishlist-container">
+                <a href="https://de.anycubic.com/products/petg-translucent" class="wish-item" target="_blank"
+                    rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/petg-trans-models.jpg?v=1756449701&width=713"
+                        alt="PETG Translucent Filament" style="margin-top: 10px; border-radius: 16px;">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PETG Translucent</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/petg-translucent" class="wish-item" target="_blank"
+                    rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/PETGClear1.jpg?v=1756449805&width=713"
+                        alt="PETG Translucent Filament Clear">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PETG Translucent Clear</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/petg-translucent?variant=46763364778222" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/PETGTranslucentOlive1.jpg?v=1756449805&width=713"
+                        alt="PETG Translucent Filament Green">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PETG Translucent Green</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/petg-translucent?variant=46763364810990" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/PETGTranslucentOrange1.jpg?v=1756449805&width=713"
+                        alt="PETG Translucent Filament Orange" style="margin-top: 10px; border-radius: 16px;">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PETG Translucent Orange</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/petg-translucent?variant=46763364745454" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/PETGTranslucentPink1.jpg?v=1756449805&width=713"
+                        alt="PETG Translucent Filament Pink" style="margin-top: 10px; border-radius: 16px;">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PETG Translucent Pink</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/petg-translucent?variant=46763364843758" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/PETGTranslucentPurple1.jpg?v=1756449805&width=713"
+                        alt="PETG Translucent Filament Purple">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PETG Translucent Purple</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/petg-translucent?variant=46763364679918" class="wish-item"
+                    target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/PETGTranslucentBlue1.jpg?v=1756449805&width=713"
+                        alt="PETG Translucent Filament Blue">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">PETG Translucent Blue</div>
+                    </div>
+                </a>
+            </div>
+            <h3 id="sonstiges-filament">Sonstiges Filament</h3>
+            <h3>Bitte überprüfen ob das Filament komatibel ist mit:</h3>
+            <div class="wishlist-container">
+                <a href="https://de.anycubic.com/products/kobra-3-combo" class="wish-item starred" target="_blank"
+                    rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/Kobra3Combo_2_cc77862c-517d-4fdd-8a16-e567b70b3222.jpg?v=1760610498&width=713"
+                        alt="PLA-Silk Filament Regenbogen">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">Anycubic Kobra 3 (Kombo)</div>
+                    </div>
+                </a>
+                <a href="https://de.anycubic.com/products/kobra-2-neo" class="wish-item" target="_blank" rel="noopener">
+                    <img src="https://de.anycubic.com/cdn/shop/files/Kobra2Neo.png?v=1725249546&width=713"
+                        alt="PLA-Silk Filament Regenbogen">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">Anycubic Kobra 2 Neo</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <section id="sonstiges" class="last-section">
+            <h2>Sonstiges</h2>
+            <div class="wishlist-container">
+                <a class="wish-item wish-item-disabled">
+                    <img src="https://cdn.pixabay.com/photo/2023/10/18/22/25/money-8325180_1280.png" alt="Geld"
+                        style="margin-top: 10px; border-radius: 16px;">
+                    <div class="wish-item-content">
+                        <div class="wish-item-title">Geld</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <button id="scrollToTop" type="button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            ↑
+        </button>
+
+        <script>
+            const scrollBtn = document.getElementById('scrollToTop');
+            window.addEventListener('scroll', () => {
+                scrollBtn.style.display = window.scrollY > 0 ? 'flex' : 'none';
+            });
+            scrollBtn.addEventListener('mouseover', () => {
+                scrollBtn.style.transform = 'scale(1.1)';
+            });
+            scrollBtn.addEventListener('mouseout', () => {
+                scrollBtn.style.transform = 'scale(1)';
+            });
+        </script>
+    </footer>
+</body>
+
+</html>

@@ -168,6 +168,12 @@
             margin-bottom: 0px;
         }
 
+        .wish-item.starred {
+            border: 1px solid gold;
+            box-shadow: 0 0 15px gold;
+            z-index: 20;
+        }
+
         .wish-item.starred::after {
             content: "★";
             position: absolute;
@@ -176,7 +182,12 @@
             font-size: 40px;
             color: gold;
             text-shadow: 0px 2px 5px rgb(0, 0, 0);
-            z-index: 10;
+            z-index: 20;
+        }
+
+        .wish-item.bad {
+            border: 0.5px solid red;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
         }
 
         .wish-item.bad img {
@@ -195,9 +206,68 @@
             z-index: 10;
         }
 
-        .wish-item.bad:hover img{
+        .wish-item.bad:hover {
+            border: 1px solid red;
+            box-shadow: 0 0 15px red;
+        }
+
+        .wish-item.bad:hover img {
             filter: none;
             opacity: 1;
+        }
+
+        .handy-only {
+            display: none;
+        }
+
+        @media (max-width: 700px) {
+            .wish-item {
+                max-width: 90%;
+                height: auto;
+            }
+
+            .wish-item img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .nav {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            section {
+                background-color: rgba(0, 0, 0, 0);
+                -webkit-backdrop-filter: none;
+                padding: none;
+                backdrop-filter: none;
+                border-radius: none;
+                box-shadow: none;
+                margin-bottom: 120px;
+            }
+
+            .handy-only {
+                display: block;
+                background: red;
+                animation: handy forwards 1s linear infinite;
+            }
+
+            @keyframes handy {
+                0%,
+                100% {
+                    background: red;
+                    box-shadow: 0 0 20px orange;
+                    transform: scale(1.1);
+                    transform: rotate(2deg);
+                }
+
+                50% {
+                    background: orange;
+                    box-shadow: 0 0 10px orange;
+                    transform: scale(1);
+                    transform: rotate(-2deg);
+                }
+            }
         }
     </style>
 </head>
@@ -210,6 +280,7 @@
             <a href="#Gutscheine & Abos" class="header-link">Gutscheine & Abos</a>
             <a href="#Filamente" class="header-link">Filamente</a>
             <a href="#sonstiges" class="header-link">Sonstiges</a>
+            <a href="handy.html" class="header-link handy-only">Wechsle jetzt zur Handy Version!</a>
         </div>
     </header>
     <main>
@@ -529,7 +600,7 @@
             <h3 id="sonstiges-filament">Sonstiges Filament</h3>
             <h3>Bitte überprüfen ob das Filament komatibel ist mit:</h3>
             <div class="wishlist-container">
-                <a href="https://de.anycubic.com/products/kobra-3-combo" class="wish-item" target="_blank"
+                <a href="https://de.anycubic.com/products/kobra-3-combo" class="wish-item starred" target="_blank"
                     rel="noopener">
                     <img src="https://de.anycubic.com/cdn/shop/files/Kobra3Combo_2_cc77862c-517d-4fdd-8a16-e567b70b3222.jpg?v=1760610498&width=713"
                         alt="PLA-Silk Filament Regenbogen">

@@ -50,11 +50,9 @@
             justify-content: center;
             gap: 30px;
             width: 100%;
-            margin-top: 0 auto;
-            margin-left: 0 auto;
-            margin-right: 0 auto;
+            margin: 0;
             object-position: center;
-            margin-bottom: 150px;
+            margin-bottom: 30px;
         }
 
         .wish-item {
@@ -155,6 +153,20 @@
             width: 100%;
             font-weight: bold;
         }
+
+        section {
+            background-color: rgba(255, 255, 255, 0.121);
+            -webkit-backdrop-filter: blur(2px);
+            padding: 10px;
+            backdrop-filter: blur(2px);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 120px;
+        }
+
+        .last-section {
+            margin-bottom: 0px;
+        }
     </style>
 </head>
 
@@ -165,10 +177,12 @@
         <div class="nav">
             <a href="#Gutscheine & Abos" class="header-link">Gutscheine & Abos</a>
             <a href="#Filamente" class="header-link">Filamente</a>
+            <a href="#sonstiges" class="header-link">Sonstiges</a>
         </div>
     </header>
     <main>
-        <h2 id="Gutscheine & Abos">Gutscheine & Abos</h2>
+        <section  id="Gutscheine & Abos">
+        <h2>Gutscheine & Abos</h2>
         <div class="wishlist-container">
             <a href="anycubic-gutschein/index.html" class="wish-item" target="_blank">
                 <img src="https://www.3dprintingbusiness.directory/wp-content/uploads/2020/11/anycubiclogo.jpg"
@@ -210,13 +224,16 @@
                 </div>
             </a>
         </div>
-        <h2 id="Filamente">Filamente</h2>
+        </section>
+        <section id="Filamente">
+        <h2>Filamente</h2>
         <h2>Bitte beim Kauf mehrer Filamente Bündel erstellen!</h2>
         <div class="nav">
             <a href="#pla+" class="header-link">PLA+</a>
             <a href="#pla-silk" class="header-link">PLA-Silk</a>
+            <a href="#dual-tri-color" class="header-link">PLA Silk Dual/Tri-Color</a>
             <a href="#petg-translucent" class="header-link">PETG Translucent</a>
-            <a href="#sonstiges" class="header-link">Sonstiges Filament</a>
+            <a href="#sonstiges-filament" class="header-link">Sonstiges Filament</a>
         </div>
         <h3 id="pla+">PLA+</h3>
         <div class="wishlist-container">
@@ -310,9 +327,9 @@
             <a href="https://de.anycubic.com/products/pla-plus-filament?variant=45521662542062" class="wish-item"
                 target="_blank" rel="noopener">
                 <img src="https://de.anycubic.com/cdn/shop/files/plaplusPurple1_8bb6d9f5-4a2a-4dfd-ba64-29eb6f6ab43d.jpg?v=1756452638&width=713"
-                    alt="PLA+ Filament Violet">
+                    alt="PLA+ Filament Purple">
                 <div class="wish-item-content">
-                    <div class="wish-item-title">PLA+ Violet</div>
+                    <div class="wish-item-title">PLA+ Purple</div>
                 </div>
             </a>
             <a href="https://de.anycubic.com/products/pla-plus-filament?variant=45983413010670" class="wish-item"
@@ -341,10 +358,10 @@
             </a>
             <a href="https://de.anycubic.com/products/pla-plus-filament?variant=46860097781998" class="wish-item"
                 target="_blank" rel="noopener">
-                <img src="https://de.anycubic.com/cdn/shop/files/plaplusInterstellarViolet1_4b10d117-c80d-45be-b54c-57d6a495d4fe.jpg?v=1756452638&width=713"
-                    alt="PLA+ Filament Interstellar Violet">
+                <img src="https://de.anycubic.com/cdn/shop/files/plaplusInterstellarPurple1_4b10d117-c80d-45be-b54c-57d6a495d4fe.jpg?v=1756452638&width=713"
+                    alt="PLA+ Filament Interstellar Purple">
                 <div class="wish-item-content">
-                    <div class="wish-item-title">PLA+ Interstellar Violet</div>
+                    <div class="wish-item-title">PLA+ Interstellar Purple</div>
                 </div>
             </a>
             <a href="https://de.anycubic.com/products/pla-plus-filament?variant=46860097814766" class="wish-item"
@@ -398,6 +415,9 @@
                     <div class="wish-item-title">PLA-Silk Copper</div>
                 </div>
             </a>
+        </div>
+        <h2 id="dual-tri-color">PLA Silk Dual/Tri-Color</h2>
+        <div class="wishlist-container">
             <a href="https://de.anycubic.com/products/silk-pla-filament?variant=43041661255918" class="wish-item"
                 target="_blank" rel="noopener">
                 <img src="https://de.anycubic.com/cdn/shop/files/plasilkRainbow1.jpg?v=1756453448&width=713"
@@ -406,12 +426,75 @@
                     <div class="wish-item-title">PLA-Silk Rainbow</div>
                 </div>
             </a>
-        </div>
+            <a href="https://de.anycubic.com/products/silk-pla-dual-tri-color?variant=45237290565870" class="wish-item"
+                target="_blank" rel="noopener">
+                <img src="https://de.anycubic.com/cdn/shop/files/PLASilkDual-Triredblue1.jpg?v=1756451320&width=713"
+                    alt="PLA-Silk Filament Pastell">
+                <div class="wish-item-content">
+                    <div class="wish-item-title">PLA-Silk Red-Blue</div>
+                </div>
+            </a>
+        </div> 
         <h3 id="petg-translucent">PETG Translucent</h3>
         <div class="wishlist-container">
-            <h3>Leider noch keine Artikel hinzugefügt</h3>
+            <a href="https://de.anycubic.com/products/petg-translucent" class="wish-item"
+                target="_blank" rel="noopener">
+                <img src="https://de.anycubic.com/cdn/shop/files/petg-trans-models.jpg?v=1756449701&width=713"
+                    alt="PETG Translucent Filament"  style="margin-top: 10px; border-radius: 16px;">
+                <div class="wish-item-content">
+                    <div class="wish-item-title">PETG Translucent</div>
+                </div>
+            </a>
+            <a href="https://de.anycubic.com/products/petg-translucent" class="wish-item"
+                target="_blank" rel="noopener">
+                <img src="https://de.anycubic.com/cdn/shop/files/PETGClear1.jpg?v=1756449805&width=713"
+                    alt="PETG Translucent Filament Clear">
+                <div class="wish-item-content">
+                    <div class="wish-item-title">PETG Translucent Clear</div>
+                </div>
+            </a>
+            <a href="https://de.anycubic.com/products/petg-translucent?variant=46763364778222" class="wish-item"
+                target="_blank" rel="noopener">
+                <img src="https://de.anycubic.com/cdn/shop/files/PETGTranslucentOlive1.jpg?v=1756449805&width=713"
+                    alt="PETG Translucent Filament Green">
+                <div class="wish-item-content">
+                    <div class="wish-item-title">PETG Translucent Green</div>
+                </div>
+            </a>
+            <a href="https://de.anycubic.com/products/petg-translucent?variant=46763364810990" class="wish-item"
+                target="_blank" rel="noopener">
+                <img src="https://de.anycubic.com/cdn/shop/files/PETGTranslucentOrange1.jpg?v=1756449805&width=713"
+                    alt="PETG Translucent Filament Orange"  style="margin-top: 10px; border-radius: 16px;">
+                <div class="wish-item-content">
+                    <div class="wish-item-title">PETG Translucent Orange</div>
+                </div>
+            </a>
+            <a href="https://de.anycubic.com/products/petg-translucent?variant=46763364745454" class="wish-item"
+                target="_blank" rel="noopener">
+                <img src="https://de.anycubic.com/cdn/shop/files/PETGTranslucentPink1.jpg?v=1756449805&width=713"
+                    alt="PETG Translucent Filament Pink"  style="margin-top: 10px; border-radius: 16px;">
+                <div class="wish-item-content">
+                    <div class="wish-item-title">PETG Translucent Pink</div>
+                </div>
+            </a>
+            <a href="https://de.anycubic.com/products/petg-translucent?variant=46763364843758" class="wish-item"
+                target="_blank" rel="noopener">
+                <img src="https://de.anycubic.com/cdn/shop/files/PETGTranslucentPurple1.jpg?v=1756449805&width=713"
+                    alt="PETG Translucent Filament Purple">
+                <div class="wish-item-content">
+                    <div class="wish-item-title">PETG Translucent Purple</div>
+                </div>
+            </a>
+            <a href="https://de.anycubic.com/products/petg-translucent?variant=46763364679918" class="wish-item"
+                target="_blank" rel="noopener">
+                <img src="https://de.anycubic.com/cdn/shop/files/PETGTranslucentBlue1.jpg?v=1756449805&width=713"
+                    alt="PETG Translucent Filament Blue">
+                <div class="wish-item-content">
+                    <div class="wish-item-title">PETG Translucent Blue</div>
+                </div>
+            </a>
         </div>
-        <h3 id="sonstiges">Sonstiges Filament</h3>
+        <h3 id="sonstiges-filament">Sonstiges Filament</h3>
         <h3>Bitte überprüfen ob das Filament komatibel ist mit:</h3>
         <div class="wishlist-container">
             <a href="https://de.anycubic.com/products/kobra-3-combo" class="wish-item"
@@ -431,6 +514,18 @@
                 </div>
             </a>
         </div>
+        </section>
+        <section id="sonstiges" class="last-section">
+        <h2>Sonstiges</h2>
+        <div class="wishlist-container">
+            <a class="wish-item wish-item-disabled">
+                <img src="https://cdn.pixabay.com/photo/2023/10/18/22/25/money-8325180_1280.png" alt="Geld" style="margin-top: 10px; border-radius: 16px;">
+                <div class="wish-item-content">
+                    <div class="wish-item-title">Geld</div>
+                </div>
+            </a>
+        </div>
+        </section>
     </main>
     <footer>
         <button id="scrollToTop" type="button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
